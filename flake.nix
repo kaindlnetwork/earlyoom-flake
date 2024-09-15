@@ -12,6 +12,8 @@
           system = "x86_64-linux";
           modules = [
             ({ config, pkgs, ... }: {
+              system.stateVersion = "24.11"; # Füge hier die stateVersion hinzu
+              
               systemd.services.earlyoom.serviceConfig = {
                 AmbientCapabilities = "CAP_KILL CAP_IPC_LOCK";
                 CapabilityBoundingSet = "CAP_KILL CAP_IPC_LOCK";
