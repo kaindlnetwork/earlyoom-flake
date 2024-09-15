@@ -1,0 +1,24 @@
+name: Build NixOS Flake
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v23
+
+      - name: Build Nix Flake
+        run: nix build .#nixosConfigurations.earlyoom.config.system.build.toplevel
+
+      - name: Run NixOS tests (optional)
+        run: nix flake check
